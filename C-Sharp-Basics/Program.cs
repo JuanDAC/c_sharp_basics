@@ -5,6 +5,12 @@
         static void Main(string[] args)
         {
             Console.WriteLine("Hello, World!");
+
+            MenuItems items = new MenuItems();
+
         }
     }
+
+
+
 }
