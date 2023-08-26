@@ -1,0 +1,46 @@
+﻿@page "/next"
+
+<PageTitle>@title</PageTitle>
+
+<h1>@title</h1>
+
+<p role="status">Input a number that you want to add 1</p>
+
+<input @bind="InputValue" />
+<p role="status">the next is: @nextValue </p>
+@if (!isValid)
+{
+    <p role="status">Input a valid number</p>
+}
+
+
+@code {
+    private string title = "Next Number";
+    private int number = 0;
+    private string InputValue {
+        get {
+            return number.ToString();
+        }
+        set
+        {
+            try
+            {
+                number = Int32.Parse(value);
+                nextValue = number + 1;
+                isValid = true;
+            } 
+            catch
+            {
+                isValid = false;
+            }
+        }
+    }
+
+    private int nextValue = 0;
+    private bool isValid = true;
+
+    private void getNext()
+    {
+        nextValue  = Int32.Parse(InputValue) + 1;
+    }
+}

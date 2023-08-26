@@ -1,0 +1,54 @@
+﻿<div class="top-row ps-3 navbar navbar-dark">
+    <div class="container-fluid">
+        <a class="navbar-brand" href="">UI_activities</a>
+        <button title="Navigation menu" class="navbar-toggler" @onclick="ToggleNavMenu">
+            <span class="navbar-toggler-icon"></span>
+        </button>
+    </div>
+</div>
+
+<div class="@NavMenuCssClass nav-scrollable" @onclick="ToggleNavMenu">
+    <nav class="flex-column">
+        @foreach (ItemMemnu item in exercices)
+        {
+            <div class="nav-item px-3" @key="item.name">
+                <NavLink class="nav-link" href="@item.url" Match="NavLinkMatch.All">
+                    <span class="oi @item.icon" aria-hidden="true"></span> @item.name
+                </NavLink>
+            </div>
+        }
+    </nav>
+</div>
+
+@code {
+    private bool collapseNavMenu = true;
+
+    private string? NavMenuCssClass => collapseNavMenu ? "collapse" : null;
+
+    public class ItemMemnu
+    {
+        public string url;
+        public string name;
+        public string icon;
+
+        public ItemMemnu(string url, string name, string icon)
+        {
+            this.url = url;
+            this.name = name;
+            this.icon = icon;
+        }
+    }
+
+    private ItemMemnu[] exercices = new ItemMemnu[] {
+        new ItemMemnu("", "Home", "oi-home"),
+        new ItemMemnu("next", "Next Number", "oi-chevron-right"),
+        new ItemMemnu("percentage", "30 percentage", "oi-chevron-right"),
+        new ItemMemnu("perimeter-and-area", "perimeter and area", "oi-chevron-right"),
+        new ItemMemnu("", "Other", "oi-chevron-right"),
+    };
+
+    private void ToggleNavMenu()
+    {
+        collapseNavMenu = !collapseNavMenu;
+    }
+}

@@ -1,0 +1,29 @@
+﻿@page "/percentage"
+
+
+
+<PageTitle>@title</PageTitle>
+
+<h1>@title</h1>
+
+<button @onclick="CalculatePercentage" >New number</button>
+<p role="status">Add 30 percentage to random number</p>
+<p role="status">The random number is: @random</p>
+<p role="status">The addition of the 30% is: @percentage</p>
+
+
+@code {
+    private string title = "Percentage";
+
+    private Double random = 0;
+    private Double percentage = 0;
+
+    private void CalculatePercentage() {
+        try {
+            random = (Double)(new Random()).Next(1, 200);
+            percentage = random + (random * 0.3);
+        } catch {
+            Console.WriteLine("Try to input a valid format");
+        }
+    }
+}
