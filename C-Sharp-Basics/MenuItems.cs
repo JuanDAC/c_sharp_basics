@@ -13,6 +13,7 @@ namespace C_Sharp_Basics
     {
         public Process process;
         public string message;
+        //7/7/
         public MenuItems(Process process, string message) {
             this.message = message;
             this.process = process;
