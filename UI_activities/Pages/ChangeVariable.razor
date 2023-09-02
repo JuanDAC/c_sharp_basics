@@ -1,0 +1,59 @@
+﻿@page "/change-variable"
+
+
+
+<PageTitle>@title</PageTitle>
+
+<h1>@title</h1>
+
+<p role="status">Change the first variable:</p>
+<input @bind="InputValueOne" type="text" />
+
+<p role="status">Input the second variable:</p>
+<input @bind="InputValueTwo" type="text" />
+<br />
+<button @onclick="ToChangeVariable">Change Variables</button>
+
+
+@code {
+    private string title = "Change Variables";
+
+    private string valueOne = "";
+    private string valueTwo = "";
+    private bool isValidHeight = true;
+    private bool isValidWidth = true;
+
+    private string InputValueOne
+    {
+        get
+        {
+            return valueOne.ToString();
+        }
+        set
+        {
+            valueOne = value;
+        }
+    }
+
+
+    private string InputValueTwo
+    {
+        get
+        {
+            return valueTwo.ToString();
+        }
+        set
+        {
+            valueTwo = (value);
+        }
+    }
+
+    private void ToChangeVariable()
+    {
+        string temp1 = valueOne;
+        string temp2 = valueTwo;
+
+        InputValueOne = temp2;
+        InputValueTwo = temp1;
+    }
+}

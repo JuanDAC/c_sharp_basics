@@ -8,43 +8,43 @@
 
 <p role="status">Calculate the perimeter and area</p>
 <p role="status">Input the height of the rectangle:</p>
-<input @bind="InputValueHeight" />
+<input @bind="InputValueHeight" type="number" />
+
 @if (!isValidHeight)
 {
     <p>invalid value of height</p>
 }
 
 <p role="status">Input the width of the rectangle:</p>
-<input @bind="InputValueWidth" />
-@if (!isValidWidth)
+<input @bind="InputValueRadio" type="number" />
+
+@if (!isValidRadio)
 {
     <p>invalid value of width</p>
 }
 
 
-@if (isValidWidth && isValidHeight)
+@if (isValidRadio && isValidHeight)
 {
     <p>
-        perimeter: @(perimeter)px <br/>
+        volume: @(volume)px <br />
     
-        area: @(area)px
     </p>
     <div style="width: 80vw;height: 50vh;display: grid;place-items: center;">
-        <div style="width: @(width)px;height: @(height)px;display: grid;place-items: center;background: #54bc96; color: white;border: solid green 1px;">
+        <div style="transition: all 300ms ease-in-out; width: @(width)px;height: @(height)px;display: grid;place-items: center;background: #54bc96; color: white;border: solid green 1px;">
         </div>
     </div>
 }
 
 
 @code {
-    private string title = "Perimeter and area";
+    private string title = "Cylinder volume heigth";
 
     private Double height = 0;
-    private Double width = 0;
-    private Double perimeter = 0;
-    private Double area = 0;
+    private Double radio = 0;
+    private Double volume = 0;
     private bool isValidHeight = true;
-    private bool isValidWidth = true;
+    private bool isValidRadio = true;
 
     private string InputValueHeight
     {
@@ -68,23 +68,23 @@
     }
 
 
-    private string InputValueWidth
+    private string InputValueRadio
     {
         get
         {
-            return width.ToString();
+            return radio.ToString();
         }
         set
         {
             try
             {
-                width = Int32.Parse(value);
-                isValidWidth = true;
+                radio = Int32.Parse(value);
+                isValidRadio = true;
                 CalculateProperties();
             }
             catch
             {
-                isValidWidth = false;
+                isValidRadio = false;
             }
         }
     }
@@ -92,8 +92,7 @@
     private void CalculateProperties() {
             try
             {
-                perimeter = height * 2 + width * 2;
-                area = height * width;
+                volume = radio * Math.PI * height;
             }
             catch
             {
