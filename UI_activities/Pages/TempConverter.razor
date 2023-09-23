@@ -1,0 +1,53 @@
+@page "/temp-converter"
+
+<PageTitle>Temperature Converter</PageTitle>
+
+<h1>Temperature Converter</h1>
+
+<p role="status">Convert temperature from Celsius to Fahrenheit</p>
+<p role="status">Input the temperature in Celsius:</p>
+<input @bind="InputValueCelsius" type="number" />
+
+@if (!isValidCelsius)
+{
+    <p>Invalid value of Celsius temperature</p>
+}
+
+@if (isValidCelsius)
+{
+    <p>
+        Fahrenheit: @(celsiusToFahrenheit) °F
+    </p>
+}
+
+@code {
+    private Double celsius = 0;
+    private Double celsiusToFahrenheit = 0;
+    private bool isValidCelsius = true;
+
+    private string InputValueCelsius
+    {
+        get
+        {
+            return celsius.ToString();
+        }
+        set
+        {
+            try
+            {
+                celsius = Double.Parse(value);
+                isValidCelsius = true;
+                ConvertToFahrenheit();
+            }
+            catch
+            {
+                isValidCelsius = false;
+            }
+        }
+    }
+
+    private void ConvertToFahrenheit()
+    {
+        celsiusToFahrenheit = (celsius * 9 / 5) + 32;
+    }
+}

@@ -1,0 +1,96 @@
+@page "/gender-percentage"
+
+<PageTitle>Gender Percentage Calculator</PageTitle>
+
+<h1>Gender Percentage Calculator</h1>
+
+<p role="status">Calculate the percentage of men and women in a group</p>
+<p role="status">Input the total number of men:</p>
+<input @bind="InputValueMen" type="number" />
+
+<p role="status">Input the total number of women:</p>
+<input @bind="InputValueWomen" type="number" />
+
+@if (!isValidMen)
+{
+    <p>Invalid value of the total number of men</p>
+}
+
+@if (!isValidWomen)
+{
+    <p>Invalid value of the total number of women</p>
+}
+
+@if (isValidMen && isValidWomen)
+{
+    <p>
+        Percentage of Men: @(percentageMen)%<br />
+        Percentage of Women: @(percentageWomen)%
+    </p>
+}
+
+@code {
+    private int totalMen = 0;
+    private int totalWomen = 0;
+    private bool isValidMen = true;
+    private bool isValidWomen = true;
+    private double percentageMen = 0;
+    private double percentageWomen = 0;
+
+    private string InputValueMen
+    {
+        get
+        {
+            return totalMen.ToString();
+        }
+        set
+        {
+            try
+            {
+                totalMen = Int32.Parse(value);
+                isValidMen = true;
+                CalculatePercentages();
+            }
+            catch
+            {
+                isValidMen = false;
+            }
+        }
+    }
+
+    private string InputValueWomen
+    {
+        get
+        {
+            return totalWomen.ToString();
+        }
+        set
+        {
+            try
+            {
+                totalWomen = Int32.Parse(value);
+                isValidWomen = true;
+                CalculatePercentages();
+            }
+            catch
+            {
+                isValidWomen = false;
+            }
+        }
+    }
+
+    private void CalculatePercentages()
+    {
+        if (isValidMen && isValidWomen && (totalMen + totalWomen) > 0)
+        {
+            double totalPeople = totalMen + totalWomen;
+            percentageMen = (totalMen / totalPeople) * 100;
+            percentageWomen = (totalWomen / totalPeople) * 100;
+        }
+        else
+        {
+            percentageMen = 0;
+            percentageWomen = 0;
+        }
+    }
+}

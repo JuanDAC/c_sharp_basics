@@ -1,0 +1,98 @@
+@page "/divisibility-checker"
+
+<PageTitle>Divisibility Checker</PageTitle>
+
+<h1>Divisibility Checker</h1>
+
+<p role="status">Check if one number is divisible by another</p>
+<p role="status">Input the first number:</p>
+<input @bind="InputValueNumber1" type="number" />
+
+<p role="status">Input the second number:</p>
+<input @bind="InputValueNumber2" type="number" />
+
+@if (!isValidNumber1)
+{
+    <p>Invalid value of the first number</p>
+}
+
+@if (!isValidNumber2)
+{
+    <p>Invalid value of the second number</p>
+}
+
+@if (isValidNumber1 && isValidNumber2)
+{
+    <p>
+        @if (IsDivisible)
+        {
+            The first number is divisible by the second number.
+        }
+        else
+        {
+            The first number is not divisible by the second number.
+        }
+    </p>
+}
+
+@code {
+    private int number1 = 0;
+    private int number2 = 0;
+    private bool isValidNumber1 = true;
+    private bool isValidNumber2 = true;
+    private bool IsDivisible = false;
+
+    private string InputValueNumber1
+    {
+        get
+        {
+            return number1.ToString();
+        }
+        set
+        {
+            try
+            {
+                number1 = Int32.Parse(value);
+                isValidNumber1 = true;
+                CheckDivisibility();
+            }
+            catch
+            {
+                isValidNumber1 = false;
+            }
+        }
+    }
+
+    private string InputValueNumber2
+    {
+        get
+        {
+            return number2.ToString();
+        }
+        set
+        {
+            try
+            {
+                number2 = Int32.Parse(value);
+                isValidNumber2 = true;
+                CheckDivisibility();
+            }
+            catch
+            {
+                isValidNumber2 = false;
+            }
+        }
+    }
+
+    private void CheckDivisibility()
+    {
+        if (isValidNumber1 && isValidNumber2 && number2 != 0)
+        {
+            IsDivisible = number1 % number2 == 0;
+        }
+        else
+        {
+            IsDivisible = false;
+        }
+    }
+}

@@ -1,0 +1,62 @@
+@page "/cm-converter"
+
+<PageTitle>Centimeter Converter</PageTitle>
+
+<h1>Centimeter Converter</h1>
+
+<p role="status">Convert centimeters to other units</p>
+<p role="status">Input the length in centimeters:</p>
+<input @bind="InputValueCm" type="number" />
+
+@if (!isValidCm)
+{
+    <p>Invalid value of centimeters</p>
+}
+
+@if (isValidCm)
+{
+    <p>
+        Yard: @(cmToYard) yards <br />
+        Meter: @(cmToMeter) meters <br />
+        Feet: @(cmToFeet) feet <br />
+        Inch: @(cmToInch) inches
+    </p>
+}
+
+@code {
+    private Double cm = 0;
+    private Double cmToYard = 0;
+    private Double cmToMeter = 0;
+    private Double cmToFeet = 0;
+    private Double cmToInch = 0;
+    private bool isValidCm = true;
+
+    private string InputValueCm
+    {
+        get
+        {
+            return cm.ToString();
+        }
+        set
+        {
+            try
+            {
+                cm = Double.Parse(value);
+                isValidCm = true;
+                ConvertUnits();
+            }
+            catch
+            {
+                isValidCm = false;
+            }
+        }
+    }
+
+    private void ConvertUnits()
+    {
+        cmToYard = cm / 91.44; // 1 yard = 91.44 cm
+        cmToMeter = cm / 100;  // 1 meter = 100 cm
+        cmToFeet = cm / 30.48; // 1 foot = 30.48 cm
+        cmToInch = cm / 2.54;  // 1 inch = 2.54 cm
+    }
+}

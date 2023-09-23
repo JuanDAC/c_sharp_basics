@@ -1,0 +1,94 @@
+@page "/cylinder-volume-positive"
+
+<PageTitle>Cylinder Volume Calculator</PageTitle>
+
+<h1>Cylinder Volume Calculator</h1>
+
+<p role="status">Calculate the volume of a cylinder</p>
+<p role="status">Input the radius of the cylinder:</p>
+<input @bind="InputValueRadius" type="number" />
+
+@if (!isValidRadius)
+{
+    <p>Invalid value of radius</p>
+}
+
+<p role="status">Input the height of the cylinder:</p>
+<input @bind="InputValueHeight" type="number" />
+
+@if (!isValidHeight)
+{
+    <p>Invalid value of height</p>
+}
+
+@if (isValidRadius && isValidHeight)
+{
+    <p>
+        Volume: @(volume) cubic units
+    </p>
+}
+
+@code {
+    private Double radius = 0;
+    private Double height = 0;
+    private Double volume = 0;
+    private bool isValidRadius = true;
+    private bool isValidHeight = true;
+
+    private string InputValueRadius
+    {
+        get
+        {
+            return radius.ToString();
+        }
+        set
+        {
+            try
+            {
+                radius = Double.Parse(value);
+                isValidRadius = true;
+                CalculateVolume();
+            }
+            catch
+            {
+                isValidRadius = false;
+            }
+        }
+    }
+
+    private string InputValueHeight
+    {
+        get
+        {
+            return height.ToString();
+        }
+        set
+        {
+            try
+            {
+                height = Double.Parse(value);
+                isValidHeight = true;
+                CalculateVolume();
+            }
+            catch
+            {
+                isValidHeight = false;
+            }
+        }
+    }
+
+    private void CalculateVolume()
+    {
+        if (radius >= 0 && height >= 0)
+        {
+            try
+            {
+                volume = Math.PI * Math.Pow(radius, 2) * height;
+            }
+            catch
+            {
+                Console.WriteLine("Try to input a valid format");
+            }
+        }
+    }
+}
